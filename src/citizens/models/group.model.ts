@@ -1,5 +1,12 @@
-import { AllowNull, Column, HasMany, Model, Table } from 'sequelize-typescript';
+import {
+  AllowNull,
+  BelongsToMany,
+  Column,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { CitizenGroup } from './citizen-groups.model';
+import { Citizen } from './citizen.model';
 
 @Table({
   tableName: 'groups',
@@ -15,6 +22,6 @@ export class Group extends Model {
   @Column
   name: string;
 
-  @HasMany(() => CitizenGroup)
-  citizenGrops: CitizenGroup[];
+  @BelongsToMany(() => Citizen, () => CitizenGroup)
+  citizens: Citizen[];
 }

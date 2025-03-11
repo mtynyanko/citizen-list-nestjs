@@ -1,15 +1,16 @@
 import {
   AllowNull,
   BelongsTo,
+  BelongsToMany,
   Column,
   ForeignKey,
-  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 
 import { CitizenGroup } from './citizen-groups.model';
 import { City } from 'src/cities/models/city.model';
+import { Group } from './group.model';
 
 @Table({
   tableName: 'citizens',
@@ -29,6 +30,6 @@ export class Citizen extends Model {
   @BelongsTo(() => City)
   city: City;
 
-  @HasMany(() => CitizenGroup)
-  groups: CitizenGroup[];
+  @BelongsToMany(() => Group, () => CitizenGroup)
+  groups: Group[];
 }

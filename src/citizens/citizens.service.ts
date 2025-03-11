@@ -36,8 +36,21 @@ export class CitizensService {
     }
     return citizen;
   }
+  createCitizenArray(arrayDto: CreateCitizenDto[]) {
+    const citizenPromises = arrayDto.map((dto) => this.createCitizen(dto));
+    return Promise.all(citizenPromises);
+  }
 
-  findAll() {
-    return `This action returns all citizens`;
+  async findAll() {
+    return await this.citizenModel.findAll({
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+      include: [
+        {
+          model: Group,
+          attributes: ['type', 'name'],
+        },
+      ],
+      order: [['id', 'ASC']],
+    });
   }
 }
