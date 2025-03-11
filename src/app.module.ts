@@ -3,6 +3,10 @@ import { CitizensModule } from './citizens/citizens.module';
 import { CitiesModule } from './cities/cities.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { Citizen } from './citizens/models/citizen.model';
+import { Group } from './citizens/models/group.model';
+import { CitizenGroup } from './citizens/models/citizen-groups.model';
+import { City } from './cities/models/city.model';
 
 @Module({
   imports: [
@@ -19,7 +23,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
         database: configService.get('DB_DATABASE'),
         username: configService.get('DB_USER'),
         password: configService.get('DB_PASSWORD'),
-        models: [],
+        models: [Citizen, Group, CitizenGroup, City],
         synchronize: false,
       }),
     }),

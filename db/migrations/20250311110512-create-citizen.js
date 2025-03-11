@@ -2,39 +2,26 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('citizens', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      login: {
+      name: {
         type: Sequelize.STRING,
         validate: {
           notEmpty: true,
           len: 255,
         },
+      },
+      city_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      password: {
-        type: Sequelize.STRING,
-        validate: {
-          notEmpty: true,
-          len: 255,
-        },
-        allowNull: false,
-      },
-      avatar: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      email: {
-        type: Sequelize.STRING,
-        validate: {
-          notEmpty: true,
-          len: 255,
-          isEmail: true,
+        references: {
+          model: 'cities',
+          key: 'id',
         },
       },
       created_at: {
@@ -52,6 +39,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('citizens');
   },
 };
